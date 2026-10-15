@@ -1,0 +1,16 @@
+# Fase 1: hanya Postgres (source of truth + antrean pg-boss).
+# Service web, worker, dan renderer ditambahkan di fase berikutnya (lihat docs/ARCHITECTURE.md).
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: pca
+      POSTGRES_PASSWORD: pca
+      POSTGRES_DB: pca
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
