@@ -192,7 +192,9 @@ export const Overlay: React.FC<{ clock: Clock }> = ({ clock }) => {
       {STEPS.map((st, i) => {
         const start = Math.round(at(clock, i, st.labelAt));
         // Label minimal tampil 0,5 s — di tempo 8 s boleh melewati cut ke shot berikutnya.
-        const end = i === last ? clock.total + 6 : Math.max(clock.starts[i]! + clock.durs[i]!, start + sec(0.5, fps));
+        // …tapi selalu berhenti saat label berikutnya muncul agar tidak bertumpuk.
+        const next = i === last ? Infinity : Math.round(at(clock, i + 1, STEPS[i + 1]!.labelAt));
+        const end = i === last ? clock.total + 6 : Math.min(next, Math.max(clock.starts[i]! + clock.durs[i]!, start + sec(0.5, fps)));
         // Finale: label lebih tinggi, badge FINISH! di bawah.
         return <ActionLabel key={st.id} text={st.label} start={start} end={end} top={i === last ? 900 : 1010} tilt={i % 2 ? 6 : -7} />;
       })}
