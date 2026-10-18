@@ -8,9 +8,17 @@ export interface TtsResult {
   characters: number;
 }
 
+export interface TtsInput {
+  text: string;
+  voiceId: string;
+  /** Teks sebelum/sesudah klip ini — menjaga intonasi saat script dipecah per kalimat. */
+  previousText?: string;
+  nextText?: string;
+}
+
 export interface TtsProvider {
   readonly sku: string;
-  synthesize(input: { text: string; voiceId: string }): Promise<TtsResult>;
+  synthesize(input: TtsInput): Promise<TtsResult>;
 }
 
 export interface ImageResult {
@@ -36,4 +44,9 @@ export interface VideoProvider {
   readonly sku: string;
   submit(input: { prompt: string; aspectRatio: "9:16"; durationSec: number; referenceImage?: Buffer }): Promise<{ jobId: string }>;
   poll(jobId: string): Promise<VideoJobState>;
+}
+
+export interface SoundEffectProvider {
+  readonly sku: string;
+  generate(input: { text: string; durationSec?: number; promptInfluence?: number; loop?: boolean }): Promise<{ audio: Buffer; format: "mp3" }>;
 }

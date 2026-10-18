@@ -1,0 +1,33 @@
+{
+  "name": "@pca/motion",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "audio": "tsx scripts/elevenlabs.ts",
+    "audio:dry": "tsx scripts/elevenlabs.ts --dry",
+    "render:karhutla": "remotion render src/index.ts KarhutlaReel ../../out/karhutla/karhutla.mp4",
+    "check:karhutla": "bash scripts/check-frames.sh"
+  },
+  "dependencies": {
+    "@fontsource/archivo": "5.3.0",
+    "@fontsource/inter": "5.3.0",
+    "@fontsource/jetbrains-mono": "5.3.0",
+    "@pca/core": "workspace:*",
+    "@pca/pipeline": "workspace:*",
+    "@pca/providers": "workspace:*",
+    "@react-three/fiber": "9.8.2",
+    "@remotion/cli": "4.0.535",
+    "@remotion/three": "4.0.535",
+    "gsap": "3.15.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "remotion": "4.0.535",
+    "three": "0.186.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.0",
+    "@types/three": "0.186.0"
+  }
+}

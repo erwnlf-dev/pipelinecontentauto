@@ -1,0 +1,573 @@
+{
+  "v": 1,
+  "mode": "dry",
+  "voiceId": "TX3LPaxmHKxFdv7VOQHJ",
+  "modelId": "eleven_multilingual_v2",
+  "beats": [
+    {
+      "id": "hook",
+      "file": null,
+      "durationMs": 2280,
+      "captions": [
+        {
+          "startMs": 0,
+          "endMs": 1586,
+          "words": [
+            {
+              "startMs": 0,
+              "endMs": 762,
+              "text": "2,6",
+              "emphasis": true
+            },
+            {
+              "startMs": 802,
+              "endMs": 1050,
+              "text": "juta",
+              "emphasis": false
+            },
+            {
+              "startMs": 1090,
+              "endMs": 1586,
+              "text": "hektare.",
+              "emphasis": false
+            }
+          ]
+        },
+        {
+          "startMs": 1846,
+          "endMs": 2280,
+          "words": [
+            {
+              "startMs": 1846,
+              "endMs": 2280,
+              "text": "Hangus.",
+              "emphasis": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scale-bali",
+      "file": null,
+      "durationMs": 2122,
+      "captions": [
+        {
+          "startMs": 0,
+          "endMs": 1812,
+          "words": [
+            {
+              "startMs": 0,
+              "endMs": 846,
+              "text": "4,5",
+              "emphasis": true
+            },
+            {
+              "startMs": 886,
+              "endMs": 1134,
+              "text": "kali",
+              "emphasis": false
+            },
+            {
+              "startMs": 1174,
+              "endMs": 1422,
+              "text": "luas",
+              "emphasis": false
+            },
+            {
+              "startMs": 1462,
+              "endMs": 1772,
+              "text": "Pulau",
+              "emphasis": false
+            }
+          ]
+        },
+        {
+          "startMs": 1812,
+          "endMs": 2212,
+          "words": [
+            {
+              "startMs": 1812,
+              "endMs": 2122,
+              "text": "Bali.",
+              "emphasis": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scale-radar",
+      "file": null,
+      "durationMs": 1958,
+      "captions": [
+        {
+          "startMs": 0,
+          "endMs": 948,
+          "words": [
+            {
+              "startMs": 0,
+              "endMs": 434,
+              "text": "Satelit",
+              "emphasis": false
+            },
+            {
+              "startMs": 474,
+              "endMs": 908,
+              "text": "merekam",
+              "emphasis": false
+            }
+          ]
+        },
+        {
+          "startMs": 948,
+          "endMs": 1958,
+          "words": [
+            {
+              "startMs": 948,
+              "endMs": 1320,
+              "text": "ribuan",
+              "emphasis": true
+            },
+            {
+              "startMs": 1360,
+              "endMs": 1670,
+              "text": "titik",
+              "emphasis": false
+            },
+            {
+              "startMs": 1710,
+              "endMs": 1958,
+              "text": "api.",
+              "emphasis": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "peat-trees",
+      "file": null,
+      "durationMs": 2116,
+      "captions": [
+        {
+          "startMs": 0,
+          "endMs": 846,
+          "words": [
+            {
+              "startMs": 0,
+              "endMs": 248,
+              "text": "Yang",
+              "emphasis": false
+            },
+            {
+              "startMs": 288,
+              "endMs": 846,
+              "text": "terbakar",
+              "emphasis": false
+            }
+          ]
+        },
+        {
+          "startMs": 1106,
+          "endMs": 2116,
+          "words": [
+            {
+              "startMs": 1106,
+              "endMs": 1416,
+              "text": "bukan",
+              "emphasis": false
+            },
+            {
+              "startMs": 1456,
+              "endMs": 1704,
+              "text": "cuma",
+              "emphasis": false
+            },
+            {
+              "startMs": 1744,
+              "endMs": 2116,
+              "text": "pohon.",
+              "emphasis": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "peat-under",
+      "file": null,
+      "durationMs": 2184,
+      "captions": [
+        {
+          "startMs": 0,
+          "endMs": 1010,
+          "words": [
+            {
+              "startMs": 0,
+              "endMs": 372,
+              "text": "Gambut",
+              "emphasis": true
+            },
+            {
+              "startMs": 412,
+              "endMs": 970,
+              "text": "menyimpan",
+              "emphasis": false
+            }
+          ]
+        },
+        {
+          "startMs": 1010,
+          "endMs": 2184,
+          "words": [
+            {
+              "startMs": 1010,
+              "endMs": 1258,
+              "text": "bara",
+              "emphasis": false
+            },
+            {
+              "startMs": 1298,
+              "endMs": 1422,
+              "text": "di",
+              "emphasis": false
+            },
+            {
+              "startMs": 1462,
+              "endMs": 1772,
+              "text": "bawah",
+              "emphasis": true
+            },
+            {
+              "startMs": 1812,
+              "endMs": 2184,
+              "text": "tanah,",
+              "emphasis": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "peat-weeks",
+      "file": null,
+      "durationMs": 2346,
+      "captions": [
+        {
+          "startMs": 0,
+          "endMs": 1054,
+          "words": [
+            {
+              "startMs": 0,
+              "endMs": 1054,
+              "text": "berminggu-minggu,",
+              "emphasis": true
+            }
+          ]
+        },
+        {
+          "startMs": 1314,
+          "endMs": 2346,
+          "words": [
+            {
+              "startMs": 1314,
+              "endMs": 1624,
+              "text": "sulit",
+              "emphasis": false
+            },
+            {
+              "startMs": 1664,
+              "endMs": 2346,
+              "text": "dipadamkan.",
+              "emphasis": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "haze-cards",
+      "file": null,
+      "durationMs": 2426,
+      "captions": [
+        {
+          "startMs": 0,
+          "endMs": 496,
+          "words": [
+            {
+              "startMs": 0,
+              "endMs": 496,
+              "text": "Asapnya",
+              "emphasis": false
+            }
+          ]
+        },
+        {
+          "startMs": 756,
+          "endMs": 1704,
+          "words": [
+            {
+              "startMs": 756,
+              "endMs": 1190,
+              "text": "menutup",
+              "emphasis": false
+            },
+            {
+              "startMs": 1230,
+              "endMs": 1664,
+              "text": "sekolah",
+              "emphasis": true
+            }
+          ]
+        },
+        {
+          "startMs": 1704,
+          "endMs": 2426,
+          "words": [
+            {
+              "startMs": 1704,
+              "endMs": 1890,
+              "text": "dan",
+              "emphasis": false
+            },
+            {
+              "startMs": 1930,
+              "endMs": 2426,
+              "text": "bandara.",
+              "emphasis": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "haze-ispa",
+      "file": null,
+      "durationMs": 2692,
+      "captions": [
+        {
+          "startMs": 0,
+          "endMs": 1648,
+          "words": [
+            {
+              "startMs": 0,
+              "endMs": 598,
+              "text": "500",
+              "emphasis": true
+            },
+            {
+              "startMs": 638,
+              "endMs": 886,
+              "text": "ribu",
+              "emphasis": false
+            },
+            {
+              "startMs": 926,
+              "endMs": 1236,
+              "text": "lebih",
+              "emphasis": false
+            },
+            {
+              "startMs": 1276,
+              "endMs": 1648,
+              "text": "warga",
+              "emphasis": false
+            }
+          ]
+        },
+        {
+          "startMs": 1908,
+          "endMs": 2692,
+          "words": [
+            {
+              "startMs": 1908,
+              "endMs": 2342,
+              "text": "terkena",
+              "emphasis": false
+            },
+            {
+              "startMs": 2382,
+              "endMs": 2692,
+              "text": "ISPA.",
+              "emphasis": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cost-ask",
+      "file": null,
+      "durationMs": 2200,
+      "captions": [
+        {
+          "startMs": 570,
+          "endMs": 1518,
+          "words": [
+            {
+              "startMs": 570,
+              "endMs": 942,
+              "text": "Berapa",
+              "emphasis": false
+            },
+            {
+              "startMs": 982,
+              "endMs": 1478,
+              "text": "kerugian",
+              "emphasis": true
+            }
+          ]
+        },
+        {
+          "startMs": 1518,
+          "endMs": 2200,
+          "words": [
+            {
+              "startMs": 1518,
+              "endMs": 2200,
+              "text": "ekonominya?",
+              "emphasis": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cost-hit",
+      "file": null,
+      "durationMs": 2348,
+      "captions": [
+        {
+          "startMs": 0,
+          "endMs": 1874,
+          "words": [
+            {
+              "startMs": 0,
+              "endMs": 1400,
+              "text": "Rp221",
+              "emphasis": true
+            },
+            {
+              "startMs": 1440,
+              "endMs": 1874,
+              "text": "triliun.",
+              "emphasis": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cta-human",
+      "file": null,
+      "durationMs": 2426,
+      "captions": [
+        {
+          "startMs": 0,
+          "endMs": 970,
+          "words": [
+            {
+              "startMs": 0,
+              "endMs": 372,
+              "text": "Hampir",
+              "emphasis": false
+            },
+            {
+              "startMs": 412,
+              "endMs": 970,
+              "text": "semuanya",
+              "emphasis": false
+            }
+          ]
+        },
+        {
+          "startMs": 1230,
+          "endMs": 2426,
+          "words": [
+            {
+              "startMs": 1230,
+              "endMs": 1602,
+              "text": "dipicu",
+              "emphasis": false
+            },
+            {
+              "startMs": 1642,
+              "endMs": 1890,
+              "text": "ulah",
+              "emphasis": false
+            },
+            {
+              "startMs": 1930,
+              "endMs": 2426,
+              "text": "manusia.",
+              "emphasis": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cta-share",
+      "file": null,
+      "durationMs": 2466,
+      "captions": [
+        {
+          "startMs": 0,
+          "endMs": 496,
+          "words": [
+            {
+              "startMs": 0,
+              "endMs": 496,
+              "text": "Bagikan,",
+              "emphasis": true
+            }
+          ]
+        },
+        {
+          "startMs": 756,
+          "endMs": 1908,
+          "words": [
+            {
+              "startMs": 756,
+              "endMs": 1004,
+              "text": "biar",
+              "emphasis": false
+            },
+            {
+              "startMs": 1044,
+              "endMs": 1354,
+              "text": "musim",
+              "emphasis": false
+            },
+            {
+              "startMs": 1394,
+              "endMs": 1642,
+              "text": "asap",
+              "emphasis": false
+            },
+            {
+              "startMs": 1682,
+              "endMs": 1868,
+              "text": "tak",
+              "emphasis": false
+            }
+          ]
+        },
+        {
+          "startMs": 1908,
+          "endMs": 2466,
+          "words": [
+            {
+              "startMs": 1908,
+              "endMs": 2466,
+              "text": "terulang.",
+              "emphasis": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "sfx": {}
+}

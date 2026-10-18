@@ -24,6 +24,7 @@ Desain lengkap (alasan arsitektur, skema DB, biaya, roadmap, keputusan SaaS): **
 | Komposisi Remotion `ShortVideo` + render + loudnorm + QA ffprobe | ✅ |
 | CLI lokal end-to-end (`stub` / `live`) | ✅ |
 | Skema Drizzle + migrasi (15 tabel, multi-tenant) | ✅ |
+| Motion graphics reel `KarhutlaReel` (Remotion + GSAP + Three.js + VO/SFX ElevenLabs) — [packages/motion](packages/motion/README.md) | ✅ dry-run dirender; VO live belum diuji ke API asli |
 | pg-boss worker, dashboard Next.js, publish Threads/TikTok | ⏳ fase berikutnya |
 
 ## Mulai
@@ -75,6 +76,7 @@ packages/core/       Zod schemas, validator, stage graph
 packages/pipeline/   alignment, caption chunker, compileTimeline, fact-check, budget, data demo
 packages/providers/  Claude, ElevenLabs, Gemini (video/gambar), helper ffmpeg, provider stub
 packages/video/      Remotion composition ShortVideo + renderer
+packages/motion/     Motion graphics hand-crafted (KarhutlaReel): GSAP, Three.js, VO + SFX ElevenLabs
 packages/db/         Drizzle schema + migrations
 docs/                ARCHITECTURE.md (plan yang disetujui)
 ```
