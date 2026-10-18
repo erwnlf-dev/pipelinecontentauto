@@ -8,7 +8,10 @@
     "audio": "tsx scripts/elevenlabs.ts",
     "audio:dry": "tsx scripts/elevenlabs.ts --dry",
     "render:karhutla": "remotion render src/index.ts KarhutlaReel ../../out/karhutla/karhutla.mp4",
-    "check:karhutla": "bash scripts/check-frames.sh"
+    "check:karhutla": "bash scripts/check-frames.sh",
+    "sfx:minibuild": "tsx scripts/sfx-minibuild.ts",
+    "render:minibuild": "remotion render src/index.ts MiniBuild8s ../../out/minibuild/minibuild-8s.mp4",
+    "render:minibuild15": "remotion render src/index.ts MiniBuild15s ../../out/minibuild/minibuild-15s.mp4"
   },
   "dependencies": {
     "@fontsource/archivo": "5.3.0",

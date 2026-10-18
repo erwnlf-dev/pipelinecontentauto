@@ -9,3 +9,5 @@ dist/
 .remotion/
 # Audio hasil generate ElevenLabs / synth (packages/motion)
 packages/motion/public/karhutla/
+# SFX sintetis (mode --dry); MP3 hasil ElevenLabs di-commit agar tidak membakar kredit ulang
+packages/motion/public/minibuild/sfx/*.wav

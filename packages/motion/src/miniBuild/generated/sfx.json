@@ -1,0 +1,15 @@
+{
+  "v": 1,
+  "mode": "live",
+  "sfx": {
+    "tap": "minibuild/sfx/tap.mp3",
+    "click": "minibuild/sfx/click.mp3",
+    "slide": "minibuild/sfx/slide.mp3",
+    "sticker": "minibuild/sfx/sticker.mp3",
+    "pop": "minibuild/sfx/pop.mp3",
+    "tink": "minibuild/sfx/tink.mp3",
+    "switch": "minibuild/sfx/switch.mp3",
+    "chime": "minibuild/sfx/chime.mp3",
+    "bed": "minibuild/sfx/bed.mp3"
+  }
+}

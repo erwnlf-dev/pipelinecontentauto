@@ -12,7 +12,10 @@ Paket ini berisi komposisi motion graphic yang dirancang tangan. Pipeline otomat
 - satu `theme.ts`;
 - render → periksa frame → perbaiki.
 
-Komposisi pertama: **`KarhutlaReel`** (Karhutla Kalimantan, Bahasa Indonesia), 1080×1920, 30 fps, ±34–35 detik, untuk Meta Threads & Reels.
+Komposisi yang tersedia (semua 1080×1920, 30 fps, untuk Meta Threads & Reels / Shorts / TikTok):
+
+- **`KarhutlaReel`**: explainer Karhutla Kalimantan, Bahasa Indonesia, ±34–35 detik, dengan VO.
+- **`MiniBuild8s` / `MiniBuild15s`**: miniatur ASMR "Warung Mini" dibangun langkah demi langkah, tanpa VO, SFX ElevenLabs. Lihat [bagian MiniBuild](#minibuild--miniatur-asmr-warung-mini).
 
 ## Alur kerja
 
@@ -153,3 +156,61 @@ scripts/
 ## Fakta & sumber
 
 Daftar sumber tiap klaim ada di `SOURCES` (`script.ts`). Angka seperti 2,6 juta ha, US$16,1 miliar (Bank Dunia 2016), dan 503.874 kasus ISPA (BNPB 2015) **wajib diverifikasi ulang** lewat stage fact-check repo sebelum publish.
+
+---
+
+## MiniBuild — miniatur ASMR "Warung Mini"
+
+Format "lagi build sesuatu" ala storyboard miniatur ASMR: 7 langkah, satu potongan dipasang pinset di tiap momen, label aksi gaya komik, dan SFX kecil yang memuaskan. Footage tangan sungguhan diganti diorama 3D procedural (Three.js via `@remotion/three`). Brand-nya fiktif ("Warung Mini", teal/coral), jadi tidak memakai merek minimarket asli.
+
+```bash
+pnpm --filter @pca/motion sfx:minibuild          # SFX live (ElevenLabs /v1/sound-generation), atau --dry untuk kit sintetis
+pnpm --filter @pca/motion render:minibuild       # 8 detik  (tempo storyboard)
+pnpm --filter @pca/motion render:minibuild15     # 15 detik (tempo santai)
+# tanpa GPU: tambahkan --gl=swangle
+```
+
+### Storyboard (tempo 8 s; tempo 15 s = 2 s per langkah + finale 3 s)
+
+| # | Waktu | Visual / adegan | Kamera | SFX | Label |
+|---|---|---|---|---|---|
+| 1 | 0:00–0:01 | Base plate beton (marka parkir, stopper kuning-hitam) turun ke cutting mat, riak debu saat mendarat; judul "Bikin Warung Mini" | Macro rendah 3/4, push pelan | tap | START! |
+| 2 | 0:01–0:02 | Tiga dinding dipasang satu per satu oleh pinset | Close-up tinggi 3/4 | click ×3 | PAS! |
+| 3 | 0:02–0:03 | Dua rak gondola + kulkas + kasir, lalu ±150 produk & botol pop-in merambat | Top-down over-shoulder | slide ×2, pop | SUSUN! |
+| 4 | 0:03–0:04 | Kaca kiri, kanan, lalu pintu disisipkan ke rel (poster promo di kaca) | Macro frontal | slide ×2, click | KLIK! |
+| 5 | 0:04–0:05 | Atap + AC turun, papan nama "WARUNG MINI" ditempel lalu digosok kartu (kilau menyapu) | Close-up depan-atas | tap, click, sticker | RAPI! |
+| 6 | 0:05–0:06 | Lampu jalan + rambu P, tiang lightbox, tong sampah, pot tanaman | Samping 3/4 | tink ×2, tap ×2 | TING! |
+| 7 | 0:06–0:08 | Malam turun; papan nama → interior → lampu jalan menyala berurutan (kedip singkat) | Wide slow push-in | switch, chime | WOW! + FINISH! |
+
+Bed lo-fi lembut (ElevenLabs, loop 10 s) di volume 0,32, fade in/out.
+
+### Cara kerjanya
+
+- **`plan.ts`**: semua waktu ditulis sebagai fraksi langkah. Satu koreografi jadi bisa dirender di dua tempo. Isinya daftar langkah (label, kamera, cue SFX) dan potongan (`PIECES`: jendela gerak, posisi akhir, arah masuk di ruang layar, titik jepit pinset).
+- **`anim3d.ts`**:
+  - `placement()`: potongan masuk dari luar frame (arah dihitung dari kamera langkah itu), mendarat dengan easing presisi, lalu squash halus yang meluruh;
+  - `cameraAt()`: cut keras antar langkah, drift ber-easing di dalam langkah, ditambah punch FOV kecil saat cut.
+- **`world/Tweezers.tsx`**: pinset selalu masuk dari kanan-atas layar, menjepit titik grip selama dibawa, membuka saat dilepas, lalu keluar frame lebih cepat dari masuknya. Test memastikan potongan berpinset dalam satu langkah tidak tumpang tindih.
+- **`world/*`**: base, dinding, interior (`InstancedMesh` produk & botol), kaca, atap/papan nama, properti, dan rig kamera/lampu. Texture papan nama, poster, mat, dan lantai digambar ke canvas setelah font siap.
+- **5 layer**:
+  1. latar studio + bokeh;
+  2. diorama 3D;
+  3. HUD / label;
+  4. grade (hangat → biru malam);
+  5. grain + vignette.
+
+### SFX ElevenLabs (`src/miniBuild/sfx.ts`)
+
+| id | Prompt | Durasi |
+|---|---|---|
+| tap | ASMR close-up: a small thin grey board placed gently on a rubber cutting mat, single soft muted tap… | 0,6 s |
+| click | ASMR close-up: tiny plastic model pieces snapping together, single crisp small click… | 0,5 s |
+| slide | ASMR close-up: thin clear acrylic panel sliding into a plastic groove, short smooth scrape ending with a soft click… | 0,8 s |
+| sticker | ASMR close-up: smoothing a small vinyl sticker flat with a plastic card, soft rubbing squeak… | 0,9 s |
+| pop | ASMR close-up: many tiny cardboard boxes placed quickly on a shelf one after another… | 1,2 s |
+| tink | ASMR close-up: a tiny metal pole clicked into place, light bright metallic tink… | 0,6 s |
+| switch | Small light switch click followed by a soft warm electrical hum of lights turning on… | 0,9 s |
+| chime | Soft magical sparkle chime, gentle satisfying reveal… | 1,5 s |
+| bed | Soft calm lo-fi ambient bed, warm mellow electric piano chords… (`loop: true`) | 10 s |
+
+Generator menormalkan peak one-shot ke −1 dBFS, karena level hasil ElevenLabs bervariasi. MP3 hasil generate di-commit di `public/minibuild/sfx/` supaya render ulang tidak membakar kredit. Catatan lisensi: output ElevenLabs paket **free tier** tidak untuk penggunaan komersial dan wajib atribusi. Untuk konten monetisasi pakai paket berbayar (Starter ke atas).

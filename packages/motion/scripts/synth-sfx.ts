@@ -3,7 +3,6 @@
  * deterministik. Mode live memakai ElevenLabs /v1/sound-generation.
  */
 import { writeFileSync } from "node:fs";
-import type { SfxId } from "../src/karhutla/script";
 
 const SR = 44100;
 
@@ -56,7 +55,7 @@ function make(sec: number, fn: (t: number, i: number) => number): Float32Array {
   return out;
 }
 
-const GEN: Record<SfxId, () => Float32Array> = {
+const GEN: Record<string, () => Float32Array> = {
   whoosh: () => {
     const n = rng(1);
     const noise = make(0.9, () => n());
@@ -125,6 +124,80 @@ const GEN: Record<SfxId, () => Float32Array> = {
     }),
 };
 
-export function synthSfx(id: SfxId, file: string): void {
-  writeFileSync(file, wav(GEN[id]()));
+// ── Kit ASMR miniatur (reel Warung Mini) ────────────────────────────────
+const asmr: Record<string, () => Float32Array> = {
+  tap: () => {
+    const n = rng(11);
+    const knock = make(0.4, (t) => Math.sin(2 * Math.PI * (180 + 260 * Math.exp(-t * 60)) * t) * Math.exp(-t * 28));
+    const tick = lowpass(make(0.4, () => n()), () => 3500).map((v, i) => v * Math.exp(-(i / SR) * 90));
+    return knock.map((v, i) => v + tick[i]! * 0.6);
+  },
+  click: () => {
+    const n = rng(12);
+    return make(0.25, (t) => {
+      const a = t < 0.004 ? n() : 0;
+      const b = t > 0.018 && t < 0.022 ? n() * 0.7 : 0;
+      return a + b + Math.sin(2 * Math.PI * 4200 * t) * Math.exp(-t * 160) * 0.5;
+    });
+  },
+  slide: () => {
+    const n = rng(13);
+    const scrape = lowpass(make(0.6, () => n()), (t) => 1800 + 2600 * (t / 0.6)).map((v, i) => {
+      const t = i / SR;
+      return v * Math.sin(Math.PI * Math.min(1, t / 0.5)) * 0.8 * (t < 0.5 ? 1 : 0);
+    });
+    return scrape.map((v, i) => {
+      const d = i / SR - 0.5;
+      return v + (d >= 0 ? Math.sin(2 * Math.PI * 3600 * d) * Math.exp(-d * 140) : 0);
+    });
+  },
+  sticker: () => {
+    const n = rng(14);
+    return lowpass(make(0.8, () => n()), (t) => 900 + 700 * Math.sin(t * 40)).map((v, i) => {
+      const t = i / SR;
+      return v * (0.6 + 0.4 * Math.sin(t * 2 * Math.PI * 9)) * Math.sin(Math.PI * (t / 0.8));
+    });
+  },
+  pop: () => {
+    const r = rng(15);
+    const out = new Float32Array(Math.round(1.0 * SR));
+    for (let k = 0; k < 16; k++) {
+      const at = Math.floor(((k + r() * 0.6) / 16) * 0.9 * SR);
+      const f = 500 + r() * 500;
+      for (let j = 0; j < SR * 0.05; j++) out[at + j]! += Math.sin(2 * Math.PI * f * (j / SR)) * Math.exp(-j / (SR * 0.008)) * (0.5 + r() * 0.5);
+    }
+    return out;
+  },
+  tink: () => make(0.6, (t) => (Math.sin(2 * Math.PI * 3150 * t) + 0.4 * Math.sin(2 * Math.PI * 6420 * t)) * Math.exp(-t * 9)),
+  switch: () => {
+    const n = rng(16);
+    return make(0.9, (t) => {
+      const click = t < 0.006 ? n() : 0;
+      const hum = t > 0.04 ? (Math.sin(2 * Math.PI * 100 * t) * 0.5 + Math.sin(2 * Math.PI * 200 * t) * 0.2) * Math.min(1, (t - 0.04) / 0.15) * Math.exp(-(t - 0.04) * 2.5) : 0;
+      return click + hum * 0.4;
+    });
+  },
+  chime: () =>
+    make(1.6, (t) =>
+      [1046.5, 1318.5, 1568, 2093].reduce((sum, f, i) => {
+        const d = t - i * 0.07;
+        return sum + (d > 0 ? Math.sin(2 * Math.PI * f * d) * Math.exp(-d * 3.2) * 0.4 : 0);
+      }, 0),
+    ),
+  bed: () =>
+    make(10, (t) => {
+      // Dua akor bergantian (Cmaj7 → Am7), envelope halus agar loop mulus di 10 s.
+      const chordA = [261.6, 329.6, 392, 493.9];
+      const chordB = [220, 261.6, 329.6, 392];
+      const mix = 0.5 - 0.5 * Math.cos((2 * Math.PI * t) / 10);
+      const pad = (fs: number[]) => fs.reduce((s2, f) => s2 + Math.sin(2 * Math.PI * f * t) + 0.5 * Math.sin(2 * Math.PI * f * 1.003 * t), 0);
+      return (pad(chordA) * (1 - mix) + pad(chordB) * mix) * 0.12;
+    }),
+};
+Object.assign(GEN, asmr);
+
+export function synthSfx(id: string, file: string): void {
+  const gen = GEN[id];
+  if (!gen) throw new Error(`tidak ada generator sintetis untuk SFX "${id}"`);
+  writeFileSync(file, wav(gen()));
 }
