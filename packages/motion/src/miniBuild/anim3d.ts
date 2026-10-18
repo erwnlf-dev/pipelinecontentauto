@@ -1,6 +1,6 @@
 import { interpolate } from "remotion";
 import { buildTheme } from "./theme";
-import { type CameraShot, type Clock, type PieceSpec, STEPS, type Vec3, at, stepAt } from "./plan";
+import { type CameraShot, type Clock, PIECES, type PieceId, type PieceSpec, STEPS, type Vec3, at, stepAt } from "./plan";
 
 const CLAMP = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 
@@ -102,9 +102,43 @@ export function popScale(frame: number, start: number, fps: number): number {
   return 1 - Math.exp(-z * w * t) * (Math.cos(wd * t) + ((z * w) / wd) * Math.sin(wd * t));
 }
 
-export const easeIO = (frame: number, range: [number, number], out: [number, number]) =>
-  interpolate(frame, range, out, { easing: buildTheme.ease.inOut, ...CLAMP });
-export const easeOut = (frame: number, range: [number, number], out: [number, number]) =>
-  interpolate(frame, range, out, { easing: buildTheme.ease.out, ...CLAMP });
-export const easeIn = (frame: number, range: [number, number], out: [number, number]) =>
-  interpolate(frame, range, out, { easing: buildTheme.ease.in, ...CLAMP });
+/**
+ * Easing helper yang aman untuk range sempit: di tempo 8 s jeda antar potongan bisa < 1 frame
+ * (mis. [68.8, 68.4]) — interpolate() akan melempar error, jadi range terbalik/kosong = lompat.
+ */
+function safe(easing: (t: number) => number) {
+  return (frame: number, range: [number, number], out: [number, number]) =>
+    range[1] - range[0] < 1e-6 ? (frame >= range[1] ? out[1] : out[0]) : interpolate(frame, range, out, { easing, ...CLAMP });
+}
+export const easeIO = safe(buildTheme.ease.inOut);
+export const easeOut = safe(buildTheme.ease.out);
+export const easeIn = safe(buildTheme.ease.in);
+
+const GRAB_IDS = (Object.keys(PIECES) as PieceId[]).filter((id) => PIECES[id].grip);
+
+/**
+ * Posisi ujung pinset + bukaan (0 = menjepit, 1 = terbuka) pada frame ini, atau null
+ * bila langkah ini tanpa pinset. Pinset menjepit grip selama potongan dibawa, membuka
+ * saat dilepas, pindah ke potongan berikutnya (yang mulai di luar frame), lalu keluar.
+ */
+export function tweezersAt(clock: Clock, frame: number): { tip: Vec3; open: number } | null {
+  const step = stepAt(clock, frame);
+  const grabs = GRAB_IDS.filter((id) => PIECES[id].step === step).sort((a, b) => PIECES[a].win[0] - PIECES[b].win[0]);
+  if (grabs.length === 0) return null;
+  const gripAt = (id: PieceId, f: number): Vec3 => add(placement(clock, f, PIECES[id]).pos, PIECES[id].grip!);
+  const pls = grabs.map((id) => placement(clock, frame, PIECES[id]));
+  const first = pls[0]!;
+  if (frame < first.f0) return { tip: gripAt(grabs[0]!, first.f0), open: 0 };
+
+  const k = pls.findIndex((p, i) => frame >= p.f0 && (i === pls.length - 1 || frame < pls[i + 1]!.f0));
+  const pl = pls[k]!;
+  const id = grabs[k]!;
+  if (frame <= pl.f1) return { tip: gripAt(id, frame), open: 0 };
+
+  const landed = gripAt(id, pl.f1);
+  const open = easeOut(frame, [pl.f1, pl.f1 + 3], [0, 1]);
+  const next = pls[k + 1];
+  if (next) return { tip: lerp3(landed, gripAt(grabs[k + 1]!, next.f0), easeIO(frame, [pl.f1 + 1, next.f0], [0, 1])), open };
+  const exit = add(landed, screenOffset(cameraAt(clock, frame), landed, [0.6, 1, 0.2]));
+  return { tip: lerp3(landed, exit, easeIn(frame, [pl.f1 + 2, pl.f1 + 2 + clock.fps * 0.3], [0, 1])), open };
+}

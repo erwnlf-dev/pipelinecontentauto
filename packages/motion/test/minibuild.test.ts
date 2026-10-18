@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { placement } from "../src/miniBuild/anim3d";
+import { placement, tweezersAt } from "../src/miniBuild/anim3d";
 import { PACES, PIECES, type PieceId, STEPS, at, makeClock, stepAt } from "../src/miniBuild/plan";
 import { SFX_PROMPTS } from "../src/miniBuild/sfx";
 
@@ -44,5 +44,20 @@ describe("MiniBuild plan", () => {
 
   it("setiap cue SFX punya prompt ElevenLabs", () => {
     for (const st of STEPS) for (const cue of st.sfx) expect(SFX_PROMPTS[cue.id]).toBeDefined();
+  });
+});
+
+describe("MiniBuild render path", () => {
+  it.each(["storyboard", "relaxed"] as const)("pinset & penempatan aman di setiap frame (tempo %s)", (pace) => {
+    const c = makeClock(pace, 30);
+    for (let f = 0; f < c.total; f++) {
+      const t = tweezersAt(c, f);
+      if (t) {
+        expect(t.tip.every(Number.isFinite), `frame ${f}`).toBe(true);
+        expect(t.open).toBeGreaterThanOrEqual(0);
+        expect(t.open).toBeLessThanOrEqual(1);
+      }
+      for (const id of Object.keys(PIECES) as PieceId[]) placement(c, f, PIECES[id]);
+    }
   });
 });
